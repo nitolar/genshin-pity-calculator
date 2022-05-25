@@ -1,0 +1,14 @@
+{
+    "id": "Enter the id of the banner you want to check: ",
+    "error_banner": "Invalid banner id! \nTry again",
+    "repeat_error": "Incorrect value in settings! \nThe valid values are: ask, no, yes",
+    "repeat_error2": "Incorrect value! \nThe valid values are: no, yes",
+    "repeat": "Do you want your pity refreshed automatically (yes, no)? ",
+    "repeat_w": "IMPORTANT: GENSHIN API WILL NOT UPDATE YOUR WISCHES IMMEDIATELY (AT LEAST IF YOU PULL 1 I DON'T KNOW HOW ABOUT 10 PULLS) IT MAY TAKE FROM 30 MINUTES UP TO EVEN 2 HOURS, SO IT IS NOT RECOMMENDED. \nALSO, IMPORTANT TO ADD, SOMETIME AUTOMATIC CHECKING MAY TURN OFF FOR SOME UNKNOWN REASON TO ME",
+    "auth_error": "Incorrect authkey!",
+    "auth_timeout": "Authkey expired! \nRefresh it by opening wish history page in Genshin",
+    "quit": "By typing \"quit\" you can turn off application",
+    "5*pity": "Your pity for 5*: ",
+    "4*pity": "Your pity for 4*: ",
+    "last": "Last "
+}

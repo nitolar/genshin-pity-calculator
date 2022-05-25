@@ -1,0 +1,14 @@
+{
+    "id": "Podaj id banneru który chcesz sprawdzić: ",
+    "error_banner": "Niepoprawne id banneru! \nSpróbuj ponownie",
+    "repeat_error": "Niepoprawna wartość w ustawieniach! \nPoprawne wartości to: ask, no, yes",
+    "repeat_error2": "Niepoprawna wartość! \nPoprawne wartości to: no, yes",
+    "repeat": "Czy chcesz aby pity było odświeżane automatycznie (yes, no)? ",
+    "repeat_w": "WAŻNE: API GENSHINA NIE AKTUALIZUJE OD RAZU TWOICH WISCHY (BYNAJMNIE PRZY POJEDYŃCZYCH NIE WIEM JAK PRZY 10) MOŻE TO POTRWAĆ OD 30 MIN DO NAWET 2 GODZIN DLATEGO NIE JEST TO ZALECANE \nTEŻ WAŻNE DO DODANIA CZASAMI AUTOMATYCZNE SPRAWDZANIE MOŻE SIĘ Z NIEZNANEGO MI POWODU WYŁĄCZYĆ",
+    "auth_error": "Nie poprawny authkey!",
+    "auth_timeout": "Authkey wygasł! \nZaktualizuj go otwierając strone history w Genshinie przy wishu.",
+    "quit": "Pisząc \"quit\" zamykasz program",
+    "5*pity": "Twoje pity na 5* wynosi: ",
+    "4*pity": "Twoje pity na 4* wynosi: ",
+    "last": "Ostatni "
+}
