@@ -1,6 +1,8 @@
 # Genshin Pity Calculator
 [![Last Commit](https://img.shields.io/github/last-commit/nitolar/genshin-pity-calculator)](https://github.com/nitolar/genshin-pity-calculator/commits/master)
-[![Repo Size](https://img.shields.io/github/repo-size/nitolar/genshin-pity-calculator)](https://github.com/nitolar/genshin-pity-calculator/graphs/code-frequency)
+[![Repo size](https://img.shields.io/github/repo-size/nitolar/genshin-pity-calculator)](https://github.com/nitolar/genshin-pity-calculator/graphs/code-frequency)
+[![LICENSE](https://img.shields.io/github/license/nitolar/genshin-pity-calculator)](https://github.com/nitolar/genshin-pity-calculator/blob/master/LICENSE.md)
+
 
 It just calculates your pity
 ## How to use
