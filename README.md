@@ -35,7 +35,7 @@ Run file
 
 ## Thanks to
 
-[thesadru](https://github.com/thesadru) for creating [genshin.py](https://github.com/thesadru/genshin.py) and original [genshinstats](https://github.com/thesadru/genshinstats) [my fork of genshinstats](https://github.com/nitolar/genshinstats)
+[thesadru](https://github.com/thesadru) for creating [genshin.py](https://github.com/thesadru/genshin.py) and original [genshinstats](https://github.com/thesadru/genshinstats). [My fork of genshinstats](https://github.com/nitolar/genshinstats)
 
 
 ## Feedback
