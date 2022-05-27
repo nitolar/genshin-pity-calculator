@@ -57,7 +57,11 @@ def check_():
     if os.path.exists('log.txt') == True:
         os.remove('log.txt')
     
-    for s in gs.get_wish_history(BANNER, 90, authkey=AUTH):
+    list_rec = 90
+    if BANNER == 302:
+        list_rec = 80
+    
+    for s in gs.get_wish_history(BANNER, list_rec, authkey=AUTH):
         with open('log.txt', "a+", encoding='utf-8') as file:
             file.write(f"{s['rarity']}* - {s['name']}, {s['type']}" + '\n')
             file.close()
@@ -67,7 +71,7 @@ def check_():
     star5_ = search_string_in_file('log.txt', '5* - ')
     
     for star5 in star5_:
-        print(f'{PITY5}' + f'{90 - int(star5[0]) + 1}' + f'\n{LAST} 5*: ' + star5[1][5:])
+        print(f'{PITY5}' + f'{list_rec - int(star5[0]) + 1}' + f'\n{LAST} 5*: ' + star5[1][5:])
         break
         
     star4_ = search_string_in_file('log.txt', '4* - ')
