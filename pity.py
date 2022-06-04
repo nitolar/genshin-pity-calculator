@@ -71,13 +71,19 @@ def check_():
     star5_ = search_string_in_file('log.txt', '5* - ')
     
     for star5 in star5_:
-        print(f'{PITY5}' + f'{list_rec - int(star5[0]) + 1}' + f'\n{LAST} 5*: ' + star5[1][5:])
+        n_star5 = list_rec - int(star5[0]) + 1
+        if n_star5 <= 0:
+            n_star5 = 1
+        print(f'{PITY5}' + f'{n_star5}' + f'\n{LAST} 5*: ' + star5[1][5:])        
         break
         
     star4_ = search_string_in_file('log.txt', '4* - ')
     
     for star4 in star4_:
-        print(f'{PITY4}' + f'{10 - int(star4[0]) + 1}' + f'\n{LAST} 4*: ' + star4[1][5:])
+        n_star4 = 10 - int(star4[0]) + 1
+        if n_star4 <= 0:
+            n_star4 = 1
+        print(f'{PITY4}' + f'{n_star4}' + f'\n{LAST} 4*: ' + star4[1][5:])
         break
         
     if REPEAT_FLAG == 'yes':
