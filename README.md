@@ -5,6 +5,14 @@
 
 
 It just calculates your pity
+
+
+## Preview
+May take a second to load because it's a big file
+
+![output_test1](https://user-images.githubusercontent.com/73779998/171852263-610038d2-ee09-4e9d-b522-105648e407ff.gif)
+
+
 ## How to use
 
 Install [python](https://www.python.org)
@@ -34,6 +42,7 @@ Run file
 ```bash
   python pity.py
 ```
+
 
 ## Thanks to
 
