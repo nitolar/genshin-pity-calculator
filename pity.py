@@ -20,6 +20,8 @@ with open(f'lang/{os.getenv("lan")}.json', 'r', encoding='utf-8') as lang:
     AUTH_TIMEOUT = lang['auth_timeout']
     QUIT_ = lang['quit']
     LAST = lang['last']
+    NO_WISH_HISTORY_ERROR = lang['no_wish_history_error']
+    NO_WISH_HISTORY_ERROR2 = lang['no_wish_history_error2']
 
 def search_string_in_file(file_name, string_to_search):
     line_number = 0
@@ -70,14 +72,20 @@ def check_():
     
     star5_ = search_string_in_file('log.txt', '5* - ')
     
+    if str(star5_) == '[]':
+        print(f'{PITY5}' + f'{NO_WISH_HISTORY_ERROR} 5*' + f'\n{LAST} 5*: ' + NO_WISH_HISTORY_ERROR2)
+    
     for star5 in star5_:
         n_star5 = list_rec - int(star5[0]) + 1
         if n_star5 <= 0:
             n_star5 = 1
-        print(f'{PITY5}' + f'{n_star5}' + f'\n{LAST} 5*: ' + star5[1][5:])        
+        print(f'{PITY5}' + f'{n_star5}' + f'\n{LAST} 5*: ' + star5[1][5:])
         break
         
     star4_ = search_string_in_file('log.txt', '4* - ')
+    
+    if str(star4_) == '[]':
+        print(f'{PITY4}' + f'{NO_WISH_HISTORY_ERROR} 4*' + f'\n{LAST} 4*: ' + NO_WISH_HISTORY_ERROR2)
     
     for star4 in star4_:
         n_star4 = 10 - int(star4[0]) + 1
