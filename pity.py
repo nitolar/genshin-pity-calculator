@@ -22,6 +22,8 @@ with open(f'lang/{os.getenv("lan")}.json', 'r', encoding='utf-8') as lang:
     LAST = lang['last']
     NO_WISH_HISTORY_ERROR = lang['no_wish_history_error']
     NO_WISH_HISTORY_ERROR2 = lang['no_wish_history_error2']
+    SOFT = lang['soft']
+    TSOFT = lang['tsoft']
 
 def search_string_in_file(file_name, string_to_search):
     line_number = 0
@@ -74,12 +76,29 @@ def check_():
     
     if str(star5_) == '[]':
         print(f'{PITY5}' + f'{NO_WISH_HISTORY_ERROR} 5*' + f'\n{LAST} 5*: ' + NO_WISH_HISTORY_ERROR2)
+        
+    dict_prc = {74: '6.6%', 75: '12.6%', 76: '18.6%', 77: '24.6%', 78: '30.6%', 79: '36.6%', 80: '42.6%', 81: '48.6%', 82: '54.6%', 83: '60.6%', 84: '66.6%', 85: '72.6%', 86: '78.6%', 87: '84.6%', 88: '90.6%', 89: '96.6%', 90: '100%'}
     
     for star5 in star5_:
         n_star5 = list_rec - int(star5[0]) + 1
         if n_star5 <= 0:
             n_star5 = 1
-        print(f'{PITY5}' + f'{n_star5}' + f'\n{LAST} 5*: ' + star5[1][5:])
+            
+        isoft = list_rec - n_star5
+        if list_rec == 90:
+            if isoft >= 73:
+                isoft = isoft + 1
+                print(f'\33[92m{SOFT.replace("?num?", "74")} {dict_prc[isoft]}\33[34m')
+            else:
+                print(f'\33[92m{TSOFT.replace("?num?", f"{73 - isoft}")}\33[34m')
+        else:
+            if isoft >= 63:
+                isoft = isoft + 11
+                print(f'\33[92m{SOFT.replace("?num?", "64")} {dict_prc[isoft]}\33[34m')
+            else:
+                print(f'\33[92m{TSOFT.replace("?num?", f"{63 - isoft}")}\33[34m')
+                
+        print(f'{PITY5}' + f'{n_star5} / {list_rec}' + f'\n{LAST} 5*: ' + star5[1][5:])
         break
         
     star4_ = search_string_in_file('log.txt', '4* - ')
@@ -91,7 +110,7 @@ def check_():
         n_star4 = 10 - int(star4[0]) + 1
         if n_star4 <= 0:
             n_star4 = 1
-        print(f'{PITY4}' + f'{n_star4}' + f'\n{LAST} 4*: ' + star4[1][5:])
+        print(f'{PITY4}' + f'{n_star4} / 10' + f'\n{LAST} 4*: ' + star4[1][5:])
         break
         
     if REPEAT_FLAG == 'yes':

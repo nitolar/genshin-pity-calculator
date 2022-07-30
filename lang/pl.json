@@ -12,5 +12,7 @@
     "4*pity": "Twoje pity na 4* wynosi: ",
     "last": "Ostatni ",
     "no_wish_history_error": "Brak informacji ponieważ w przeciągu ostatnich 6 miesięcy (historia wishy jest usuwana po 6 miesiącach) nie trafiono żadnego",
-    "no_wish_history_error2": "Brak informacji"
+    "no_wish_history_error2": "Brak informacji",
+    "soft": "Od teraz jesteś w soft pity! (zaczyna się od ?num? wishy) Twoja szansa na 5* w nastepnym wishu wynosi:",
+    "tsoft": "Do soft pity muisz wykonać jeszcze ?num? wishy"
 }
