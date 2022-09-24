@@ -10,9 +10,12 @@
     "quit": "Pisząc \"quit\" zamykasz program",
     "5*pity": "Twoje pity na 5* wynosi: ",
     "4*pity": "Twoje pity na 4* wynosi: ",
-    "last": "Ostatni ",
+    "last": "Ostatni",
     "no_wish_history_error": "Brak informacji ponieważ w przeciągu ostatnich 6 miesięcy (historia wishy jest usuwana po 6 miesiącach) nie trafiono żadnego",
     "no_wish_history_error2": "Brak informacji",
     "soft": "Od teraz jesteś w soft pity! (zaczyna się od ?num? wishy) Twoja szansa na 5* w nastepnym wishu wynosi:",
-    "tsoft": "Do soft pity muisz wykonać jeszcze ?num? wishy"
+    "tsoft": "Do soft pity muisz wykonać jeszcze ?num? wishy",
+    "cache": "Dane są z cache więc mogą być przestarzałe!",
+    "load_cache": "Czy chcesz załadować dane z plików cache? (Mogą być przestażałe!) \nPisząc: ?nums? wyświetlasz dane z cache. \nPisząc \"quit\" zamykasz program",
+    "no_cache": "Nie znaleziono plików cache"
 }

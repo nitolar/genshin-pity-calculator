@@ -24,6 +24,9 @@ with open(f'lang/{os.getenv("lan")}.json', 'r', encoding='utf-8') as lang:
     NO_WISH_HISTORY_ERROR2 = lang['no_wish_history_error2']
     SOFT = lang['soft']
     TSOFT = lang['tsoft']
+    CACHE = lang['cache']
+    LCACHE = lang['load_cache']
+    NOCACHE = lang['no_cache']
 
 def search_string_in_file(file_name, string_to_search):
     line_number = 0
@@ -35,17 +38,28 @@ def search_string_in_file(file_name, string_to_search):
                 list_of_results.append((line_number, line.rstrip()))
     read_obj.close()
     return list_of_results
-  
+
+if os.getenv('cache') == "True":
+    if os.path.exists(f'{os.environ["APPDATA"]}/nitolar play') == False:
+        os.mkdir(f'{os.environ["APPDATA"]}/nitolar play')
+        os.mkdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc')
+    else:
+        if os.path.exists(f'{os.environ["APPDATA"]}/nitolar play/pity calc') == False:
+            os.mkdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc')
+
 # https://webstatic-sea.hoyoverse.com/genshin/ - 44
-    
+
 if os.getenv('authkey')[0:44] != 'https://webstatic-sea.hoyoverse.com/genshin/':
     if os.getenv('authkey') == 'auto':
-        AUTH = gs_.utility.get_authkey()
+        if os.getenv('gameloc') == "None":
+            AUTH = gs_.utility.get_authkey()
+        else:
+            AUTH = gs_.utility.get_authkey(os.getenv('gameloc'))
     else:
         print('\33[31m' + AUTH_ERROR + '\33[0m')
         quit()
 else:
-    AUTH = gs_.utility.extract_authkey(os.getenv('authkey'))
+    AUTH = gs.extract_authkey(os.getenv('authkey'))
 
 REPEAT_FLAG = os.getenv('repeat')
 r_a = ['ask', 'no', 'yes']
@@ -60,30 +74,55 @@ BANNER = 301
 def check_():
     if os.path.exists('log.txt') == True:
         os.remove('log.txt')
-    
+
     list_rec = 90
     if BANNER == 302:
         list_rec = 80
-    
+
     for s in gs.get_wish_history(BANNER, list_rec, authkey=AUTH):
         with open('log.txt', "a+", encoding='utf-8') as file:
             file.write(f"{s['rarity']}* - {s['name']}, {s['type']}" + '\n')
             file.close()
-            
+
     print(time.strftime('%H:%M:%S'))
-    
+
     star5_ = search_string_in_file('log.txt', '5* - ')
-    
-    if str(star5_) == '[]':
-        print(f'{PITY5}' + f'{NO_WISH_HISTORY_ERROR} 5*' + f'\n{LAST} 5*: ' + NO_WISH_HISTORY_ERROR2)
-        
+
     dict_prc = {74: '6.6%', 75: '12.6%', 76: '18.6%', 77: '24.6%', 78: '30.6%', 79: '36.6%', 80: '42.6%', 81: '48.6%', 82: '54.6%', 83: '60.6%', 84: '66.6%', 85: '72.6%', 86: '78.6%', 87: '84.6%', 88: '90.6%', 89: '96.6%', 90: '100%'}
-    
+
+    load = False
+
+    if str(star5_) == '[]':
+        if os.path.exists(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json') == True:
+            with open(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json', "r", encoding='utf-8') as data_:
+                data = json.load(data_)
+            print('\33[93m' + CACHE + '\33[0m')
+            isoft = int(data['5*'][0]['soft'])
+            if list_rec == 80:
+                if isoft >= 63:
+                    isoft = isoft + 11
+                    print(f'\33[92m{SOFT.replace("?num?", "64")} {dict_prc[isoft]}\33[34m')
+                else:
+                    print(f'\33[92m{TSOFT.replace("?num?", f"{63 - isoft}")}\33[34m')
+            else:
+                if isoft >= 73:
+                    isoft = isoft + 1
+                    print(f'\33[92m{SOFT.replace("?num?", "74")} {dict_prc[isoft]}\33[34m')
+                else:
+                    print(f'\33[92m{TSOFT.replace("?num?", f"{73 - isoft}")}\33[34m')
+                    
+            print(f'{PITY5}' + f'{data["5*"][0]["pity"]}' + f'\n{LAST} 5*: ' + f'{data["5*"][0]["last"]}')
+            data_.close()
+            load = True
+        else:
+            print(f'{PITY5}' + f'{NO_WISH_HISTORY_ERROR} 5*' + f'\n{LAST} 5*: ' + NO_WISH_HISTORY_ERROR2)
+            load = True
+
     for star5 in star5_:
         n_star5 = list_rec - int(star5[0]) + 1
         if n_star5 <= 0:
             n_star5 = 1
-            
+
         isoft = list_rec - n_star5
         if list_rec == 90:
             if isoft >= 73:
@@ -97,22 +136,50 @@ def check_():
                 print(f'\33[92m{SOFT.replace("?num?", "64")} {dict_prc[isoft]}\33[34m')
             else:
                 print(f'\33[92m{TSOFT.replace("?num?", f"{63 - isoft}")}\33[34m')
-                
+
         print(f'{PITY5}' + f'{n_star5} / {list_rec}' + f'\n{LAST} 5*: ' + star5[1][5:])
         break
-        
+
     star4_ = search_string_in_file('log.txt', '4* - ')
-    
+
     if str(star4_) == '[]':
-        print(f'{PITY4}' + f'{NO_WISH_HISTORY_ERROR} 4*' + f'\n{LAST} 4*: ' + NO_WISH_HISTORY_ERROR2)
-    
+        if os.path.exists(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json') == True:
+            with open(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json', "r", encoding='utf-8') as data_:
+                data = json.load(data_)
+            print(f'{PITY4}' + f'{data["4*"][0]["pity"]}' + f'\n{LAST} 4*: ' + f'{data["4*"][0]["last"]}')
+            data_.close()
+            load = True
+        else:
+            print(f'{PITY4}' + f'{NO_WISH_HISTORY_ERROR} 4*' + f'\n{LAST} 4*: ' + NO_WISH_HISTORY_ERROR2)
+            load = True
+
     for star4 in star4_:
         n_star4 = 10 - int(star4[0]) + 1
         if n_star4 <= 0:
             n_star4 = 1
         print(f'{PITY4}' + f'{n_star4} / 10' + f'\n{LAST} 4*: ' + star4[1][5:])
         break
-        
+
+    if load != True:
+        if os.getenv('cache') == "True":
+            with open(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json', 'w+', encoding='utf-8') as cach:
+                ap = {}
+                ap['5*'] = []
+                ap['4*'] = []
+
+                ap['5*'].append({
+                    'last': star5[1][5:],
+                    'pity': f'{n_star5} / {list_rec}',
+                    'soft': isoft
+                })
+
+                ap['4*'].append({
+                    'last': star4[1][5:],
+                    'pity': f'{n_star4} / 10'
+                })
+                json.dump(ap, cach, indent=4)
+                cach.close()
+
     if REPEAT_FLAG == 'yes':
         print('----------------------------------------')
         sleep(int(os.getenv('sleep')))
@@ -120,7 +187,7 @@ def check_():
     elif REPEAT_FLAG == 'no':
         print('----------------------------------------' + '\33[0m')
         user_input()
-    
+
 def user_input():
     global REPEAT_FLAG
     REPEAT_FLAG = os.getenv('repeat')
@@ -128,13 +195,61 @@ def user_input():
         banner = gs.get_banner_types(AUTH)
     except gs.errors.AuthkeyTimeout:
         print('\33[31m' + AUTH_TIMEOUT + '\33[0m')
-        quit()
+        if str(os.listdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc')) == '[]':
+            print('\33[93m' + NOCACHE + '\33[0m')
+            quit()
+        while True:
+            print('\33[93m' + LCACHE.replace('?nums?', str(os.listdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc'))) + '\33[0m')
+
+            global ID_CACHE
+            ID_CACHE = input(ID)
+
+            if ID_CACHE == 'quit':
+                quit()
+
+            if ID_CACHE not in os.listdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc'):
+                print('----------------------------------------')
+                print('\33[31m' + ERROR + '\33[0m')
+                print('----------------------------------------')
+                continue
+            else:
+                dict_prc = {74: '6.6%', 75: '12.6%', 76: '18.6%', 77: '24.6%', 78: '30.6%', 79: '36.6%', 80: '42.6%', 81: '48.6%', 82: '54.6%', 83: '60.6%', 84: '66.6%', 85: '72.6%', 86: '78.6%', 87: '84.6%', 88: '90.6%', 89: '96.6%', 90: '100%'}
+
+                list_rec = 90
+                if ID_CACHE[0:3] == '302':
+                    list_rec = 80
+
+                print('\33[34m----------------------------------------\33[0m')
+                with open(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{ID_CACHE[0:3]}.json', "r", encoding='utf-8') as data_:
+                    data = json.load(data_)
+                isoft = int(data['5*'][0]['soft'])
+                if list_rec == 80:
+                    if isoft >= 63:
+                        isoft = isoft + 11
+                        print(f'\33[92m{SOFT.replace("?num?", "64")} {dict_prc[isoft]}\33[34m')
+                    else:
+                        print(f'\33[92m{TSOFT.replace("?num?", f"{63 - isoft}")}\33[34m')
+                else:
+                    if isoft >= 73:
+                        isoft = isoft + 1
+                        print(f'\33[92m{SOFT.replace("?num?", "74")} {dict_prc[isoft]}\33[34m')
+                    else:
+                        print(f'\33[92m{TSOFT.replace("?num?", f"{73 - isoft}")}\33[34m')
+
+                print(f'{PITY5}' + f'{data["5*"][0]["pity"]}' + f'\n{LAST} 5*: ' + f'{data["5*"][0]["last"]}')
+
+                print(f'{PITY4}' + f'{data["4*"][0]["pity"]}' + f'\n{LAST} 4*: ' + f'{data["4*"][0]["last"]}')
+                data_.close()
+                print('----------------------------------------')
+
+                continue
+
     print(f'\33[0m{banner}')
     print('\33[33m' + QUIT_ + '\33[0m')
-    
+
     global BANNER
     BANNER = input(ID)
-    
+
     try:
         BANNER = int(BANNER)
 
@@ -144,7 +259,6 @@ def user_input():
             print('----------------------------------------')
             user_input()
         else:
-            print('----------------------------------------')
             if REPEAT_FLAG == 'ask':
                 print('\33[31m' + REPEAT_W + '\33[0m')
                 r_a = ['no', 'yes']
@@ -165,5 +279,5 @@ def user_input():
         print('\33[31m' + ERROR + '\33[0m')
         print('----------------------------------------')
         user_input()
-        
+
 user_input()

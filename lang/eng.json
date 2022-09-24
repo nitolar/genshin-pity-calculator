@@ -10,9 +10,12 @@
     "quit": "By typing \"quit\" you can turn off application",
     "5*pity": "Your pity for 5*: ",
     "4*pity": "Your pity for 4*: ",
-    "last": "Last ",
+    "last": "Last",
     "no_wish_history_error": "No information because in last 6 months (wish history is removed after 6 months) you haven't pulled any",
     "no_wish_history_error2": "No information",
     "soft": "From now on your in soft pity! (starts at ?num? wishes) Your chance for 5* in next wish is:",
-    "tsoft": "To soft pity you must make ?num? wishes"
+    "tsoft": "To soft pity you must make ?num? wishes",
+    "cache": "Data is shown form cache and it can be old!",
+    "load_cache": "Would you like to load data from cache? (Might be old!) \nBy typing: ?nums? it will show data from cache. \nBy typing \"quit\" you can turn off application",
+    "no_cache": "No cached data"
 }

@@ -20,19 +20,19 @@ Install [python](https://www.python.org)
 Clone the project or download it
 
 ```bash
-  git clone https://github.com/nitolar/genshin-pity-calculator
+git clone https://github.com/nitolar/genshin-pity-calculator
 ```
 
 Go to the project directory
 
 ```bash
-  cd genshin-pity-calculator
+cd genshin-pity-calculator
 ```
 
 Install requirements.txt
 
 ```bash
-  pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Configure the settings.env file
@@ -40,7 +40,7 @@ Configure the settings.env file
 Run file
 
 ```bash
-  python pity.py
+python pity.py
 ```
 
 
