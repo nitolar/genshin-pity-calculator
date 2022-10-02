@@ -10,6 +10,7 @@
     "quit": "Pisząc \"quit\" zamykasz program",
     "5*pity": "Twoje pity na 5* wynosi: ",
     "4*pity": "Twoje pity na 4* wynosi: ",
+    "next": "Twoim następny ?star? najpewniej będzie: ",
     "last": "Ostatni",
     "no_wish_history_error": "Brak informacji ponieważ w przeciągu ostatnich 6 miesięcy (historia wishy jest usuwana po 6 miesiącach) nie trafiono żadnego",
     "no_wish_history_error2": "Brak informacji",

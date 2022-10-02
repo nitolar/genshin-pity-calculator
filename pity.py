@@ -1,6 +1,6 @@
 import genshinstats as gs
 import genshin as gs_
-import os, time, json
+import os, time, json, sys
 from dotenv import load_dotenv
 from time import sleep
 
@@ -27,6 +27,7 @@ with open(f'lang/{os.getenv("lan")}.json', 'r', encoding='utf-8') as lang:
     CACHE = lang['cache']
     LCACHE = lang['load_cache']
     NOCACHE = lang['no_cache']
+    NEXT = lang['next']
 
 def search_string_in_file(file_name, string_to_search):
     line_number = 0
@@ -79,7 +80,7 @@ def check_():
     if BANNER == 302:
         list_rec = 80
 
-    for s in gs.get_wish_history(BANNER, list_rec, authkey=AUTH):
+    for s in gs.get_wish_history(BANNER, 200, authkey=AUTH):
         with open('log.txt', "a+", encoding='utf-8') as file:
             file.write(f"{s['rarity']}* - {s['name']}, {s['type']}" + '\n')
             file.close()
@@ -112,11 +113,15 @@ def check_():
                     print(f'\33[92m{TSOFT.replace("?num?", f"{73 - isoft}")}\33[34m')
                     
             print(f'{PITY5}' + f'{data["5*"][0]["pity"]}' + f'\n{LAST} 5*: ' + f'{data["5*"][0]["last"]}')
+            if data["5*"][0]["next"] != None:
+                print(f'{NEXT.replace("?star?", "5*")}' + f'{data["5*"][0]["next"]}')
             data_.close()
             load = True
         else:
             print(f'{PITY5}' + f'{NO_WISH_HISTORY_ERROR} 5*' + f'\n{LAST} 5*: ' + NO_WISH_HISTORY_ERROR2)
             load = True
+
+    n5star = None
 
     for star5 in star5_:
         n_star5 = list_rec - int(star5[0]) + 1
@@ -138,6 +143,13 @@ def check_():
                 print(f'\33[92m{TSOFT.replace("?num?", f"{63 - isoft}")}\33[34m')
 
         print(f'{PITY5}' + f'{n_star5} / {list_rec}' + f'\n{LAST} 5*: ' + star5[1][5:])
+        if BANNER == 200:
+            if f'{star5_[0]}'[-3] == 'r' and f'{star5_[1]}'[-3] == 'r':
+                print(f'{NEXT.replace("?star?", "4*")}' + 'Weapon')
+                n5star = 'Weapon'
+            elif f'{star5_[0]}'[-3] == 'n' and f'{star5_[1]}'[-3] == 'n':
+                print(f'{NEXT.replace("?star?", "4*")}' + 'Character')
+                n5star = 'Character'
         break
 
     star4_ = search_string_in_file('log.txt', '4* - ')
@@ -147,17 +159,27 @@ def check_():
             with open(f'{os.environ["APPDATA"]}/nitolar play/pity calc/{BANNER}.json', "r", encoding='utf-8') as data_:
                 data = json.load(data_)
             print(f'{PITY4}' + f'{data["4*"][0]["pity"]}' + f'\n{LAST} 4*: ' + f'{data["4*"][0]["last"]}')
+            if data["4*"][0]["next"] != None:
+                print(f'{NEXT.replace("?star?", "4*")}' + f'{data["4*"][0]["next"]}')
             data_.close()
             load = True
         else:
             print(f'{PITY4}' + f'{NO_WISH_HISTORY_ERROR} 4*' + f'\n{LAST} 4*: ' + NO_WISH_HISTORY_ERROR2)
             load = True
 
+    n4star = None
+
     for star4 in star4_:
         n_star4 = 10 - int(star4[0]) + 1
         if n_star4 <= 0:
             n_star4 = 1
         print(f'{PITY4}' + f'{n_star4} / 10' + f'\n{LAST} 4*: ' + star4[1][5:])
+        if f'{star4_[0]}'[-3] == 'r' and f'{star4_[1]}'[-3] == 'r':
+            print(f'{NEXT.replace("?star?", "4*")}' + 'Weapon')
+            n4star = 'Weapon'
+        elif f'{star4_[0]}'[-3] == 'n' and f'{star4_[1]}'[-3] == 'n':
+            print(f'{NEXT.replace("?star?", "4*")}' + 'Character')
+            n4star = 'Character'
         break
 
     if load != True:
@@ -170,12 +192,14 @@ def check_():
                 ap['5*'].append({
                     'last': star5[1][5:],
                     'pity': f'{n_star5} / {list_rec}',
-                    'soft': isoft
+                    'soft': isoft,
+                    'next': n5star
                 })
 
                 ap['4*'].append({
                     'last': star4[1][5:],
-                    'pity': f'{n_star4} / 10'
+                    'pity': f'{n_star4} / 10',
+                    'next': n4star
                 })
                 json.dump(ap, cach, indent=4)
                 cach.close()
@@ -187,6 +211,9 @@ def check_():
     elif REPEAT_FLAG == 'no':
         print('----------------------------------------' + '\33[0m')
         user_input()
+
+global ISET
+ISET = False
 
 def user_input():
     global REPEAT_FLAG
@@ -237,8 +264,11 @@ def user_input():
                         print(f'\33[92m{TSOFT.replace("?num?", f"{73 - isoft}")}\33[34m')
 
                 print(f'{PITY5}' + f'{data["5*"][0]["pity"]}' + f'\n{LAST} 5*: ' + f'{data["5*"][0]["last"]}')
-
+                if data["5*"][0]["next"] != None:
+                    print(f'{NEXT.replace("?star?", "5*")}' + f'{data["5*"][0]["next"]}')
                 print(f'{PITY4}' + f'{data["4*"][0]["pity"]}' + f'\n{LAST} 4*: ' + f'{data["4*"][0]["last"]}')
+                if data["4*"][0]["next"] != None:
+                    print(f'{NEXT.replace("?star?", "4*")}' + f'{data["4*"][0]["next"]}')
                 data_.close()
                 print('----------------------------------------')
 
@@ -248,7 +278,17 @@ def user_input():
     print('\33[33m' + QUIT_ + '\33[0m')
 
     global BANNER
-    BANNER = input(ID)
+    global ISET
+
+    if len(sys.argv) < 2:
+        BANNER = input(ID)
+    else:
+        if ISET == False:
+            print(ID + str(sys.argv[1]))
+            BANNER = int(sys.argv[1])
+            ISET = True
+        else:
+            BANNER = input(ID)
 
     try:
         BANNER = int(BANNER)
@@ -259,6 +299,7 @@ def user_input():
             print('----------------------------------------')
             user_input()
         else:
+            
             if REPEAT_FLAG == 'ask':
                 print('\33[31m' + REPEAT_W + '\33[0m')
                 r_a = ['no', 'yes']
