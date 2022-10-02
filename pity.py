@@ -145,10 +145,10 @@ def check_():
         print(f'{PITY5}' + f'{n_star5} / {list_rec}' + f'\n{LAST} 5*: ' + star5[1][5:])
         if BANNER == 200:
             if f'{star5_[0]}'[-3] == 'r' and f'{star5_[1]}'[-3] == 'r':
-                print(f'{NEXT.replace("?star?", "4*")}' + 'Weapon')
+                print(f'{NEXT.replace("?star?", "5*")}' + 'Weapon')
                 n5star = 'Weapon'
             elif f'{star5_[0]}'[-3] == 'n' and f'{star5_[1]}'[-3] == 'n':
-                print(f'{NEXT.replace("?star?", "4*")}' + 'Character')
+                print(f'{NEXT.replace("?star?", "5*")}' + 'Character')
                 n5star = 'Character'
         break
 
@@ -299,7 +299,6 @@ def user_input():
             print('----------------------------------------')
             user_input()
         else:
-            
             if REPEAT_FLAG == 'ask':
                 print('\33[31m' + REPEAT_W + '\33[0m')
                 r_a = ['no', 'yes']
