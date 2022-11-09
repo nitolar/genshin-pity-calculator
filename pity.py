@@ -28,6 +28,7 @@ with open(f'lang/{os.getenv("lan")}.json', 'r', encoding='utf-8') as lang:
     LCACHE = lang['load_cache']
     NOCACHE = lang['no_cache']
     NEXT = lang['next']
+    PERMS_ERROR = lang['perms_error']
 
 def search_string_in_file(file_name, string_to_search):
     line_number = 0
@@ -50,12 +51,25 @@ if os.getenv('cache') == "True":
 
 # https://webstatic-sea.hoyoverse.com/genshin/ - 44
 
+global S_MSG
+S_MSG = False
+
 if os.getenv('authkey')[0:44] != 'https://webstatic-sea.hoyoverse.com/genshin/':
     if os.getenv('authkey') == 'auto':
         if os.getenv('gameloc') == "None":
-            AUTH = gs_.utility.get_authkey()
+            try:
+                AUTH = gs_.utility.get_authkey()
+            except PermissionError:
+                print('\33[31m' + PERMS_ERROR + '\33[0m')
+                AUTH = "sus"
+                S_MSG = True
         else:
-            AUTH = gs_.utility.get_authkey(os.getenv('gameloc'))
+            try:
+                AUTH = gs_.utility.get_authkey(os.getenv('gameloc'))
+            except PermissionError:
+                print('\33[31m' + PERMS_ERROR + '\33[0m')
+                AUTH = "sus"
+                S_MSG = True
     else:
         print('\33[31m' + AUTH_ERROR + '\33[0m')
         quit()
@@ -220,8 +234,9 @@ def user_input():
     REPEAT_FLAG = os.getenv('repeat')
     try:
         banner = gs.get_banner_types(AUTH)
-    except gs.errors.AuthkeyTimeout:
-        print('\33[31m' + AUTH_TIMEOUT + '\33[0m')
+    except (gs.errors.AuthkeyTimeout, gs.errors.InvalidAuthkey):
+        if S_MSG == False:
+            print('\33[31m' + AUTH_TIMEOUT + '\33[0m')
         if str(os.listdir(f'{os.environ["APPDATA"]}/nitolar play/pity calc')) == '[]':
             print('\33[93m' + NOCACHE + '\33[0m')
             quit()
@@ -271,7 +286,6 @@ def user_input():
                     print(f'{NEXT.replace("?star?", "4*")}' + f'{data["4*"][0]["next"]}')
                 data_.close()
                 print('----------------------------------------')
-
                 continue
 
     print(f'\33[0m{banner}')

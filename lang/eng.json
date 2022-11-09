@@ -18,5 +18,6 @@
     "tsoft": "To soft pity you must make ?num? wishes",
     "cache": "Data is shown form cache and it can be old!",
     "load_cache": "Would you like to load data from cache? (Might be old!) \nBy typing: ?nums? it will show data from cache. \nBy typing \"quit\" you can turn off application",
-    "no_cache": "No cached data"
+    "no_cache": "No cached data",
+    "perms_error": "Can't load authkey in that case cached data is loaded. \nTurn off Genshin Impact or try running program as administrator"
 }

@@ -18,5 +18,6 @@
     "tsoft": "Do soft pity muisz wykonać jeszcze ?num? wishy",
     "cache": "Dane są z cache więc mogą być przestarzałe!",
     "load_cache": "Czy chcesz załadować dane z plików cache? (Mogą być przestażałe!) \nPisząc: ?nums? wyświetlasz dane z cache. \nPisząc \"quit\" zamykasz program",
-    "no_cache": "Nie znaleziono plików cache"
+    "no_cache": "Nie znaleziono plików cache",
+    "perms_error": "Nie można załadować authkey-a w tym wypadku ładowane są dane z cache-a. \nWyłącz Genshin Impact lub spróbuj uruchomić program jako administrator"
 }
